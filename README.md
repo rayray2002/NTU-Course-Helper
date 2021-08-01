@@ -8,7 +8,7 @@
 ## Python環境
 ### Library install
 批量安裝：
-> pip install py-require.txt
+> pip install -r py-require.txt
 
 單個安裝：
 > pip install pandas
