@@ -1,9 +1,9 @@
 # NTU-Course-Helper 台大選課小幫手
-從台大課程網爬課程資料，根據輸入空堂表及系所代號輸出可以選的通識、國文、外文、體育、系所課程。
+從 [台大課程網](https://nol.ntu.edu.tw/nol/coursesearch/index.php) 爬課程資料，根據輸入空堂表及系所代號輸出可以選的通識、國文、外文、體育、系所課程。
 
 # 環境設定
 ## 執行檔
-於Release中下載
+於 [Release](https://github.com/rayray2002/NTU-Course-Helper/releases) 中下載
 
 ## Python環境
 ### Library install
