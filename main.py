@@ -26,6 +26,7 @@ if __name__ == "__main__":
         makedirs('./out')
     if not path.exists('./save_csv'):
         makedirs('./save_csv')
+
     while True:
         try:
             name, fields, schedule, dpts = input_schedule()

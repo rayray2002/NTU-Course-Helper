@@ -25,12 +25,12 @@ def get_url(mode='系所', dpt='9010', sem='110-1', startrec=0):
     elif mode == '通識':
         return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_03_co.php?alltime=yes&allproced=yes&selcode=-1&coursename=&teachername=&current_sem=" + sem + "&yearcode=0&op=&startrec=0&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD=&allsel=yes&selCode1=&selCode2=&selCode3=&page_cnt=20000"
     elif mode == '體育':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_09_gym.php?current_sem=110-1&op=S&startrec=" + \
+        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_09_gym.php?current_sem=" + sem + "&op=S&startrec=" + \
                str(startrec) + "&cou_cname=&tea_cname=&year_code=2&checkbox=&checkbox2=&alltime=yes&allproced=yes&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD="
     elif mode == '外文':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&couarea=7&current_sem=110-1&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
+        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&couarea=7&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
     elif mode == '共同':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&current_sem=110-1&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
+        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
 
 
 def get_soup(url, code='big5'):
@@ -160,7 +160,7 @@ def department_filter(name, dpt, writer, schedule):
         for j in range(15):
             if schedule[i][j]:
                 df.drop(df[df['time_' + str(i) + '_' + str(j)] == 1].index, inplace=True)
-    df.drop(df[df['課程名稱'].str.contains('服務學習|專題', regex=1)].index, inplace=True)
+    df.drop(df[df['課程名稱'].str.contains('服務學習|專題研究', regex=1)].index, inplace=True)
 
     df = prefered_cols(df)
     sf = StyleFrame(df)
@@ -186,7 +186,7 @@ def language_filter(name, writer, schedule):
             if schedule[i][j]:
                 df.drop(df[df['time_' + str(i) + '_' + str(j)] == 1].index, inplace=True)
     df.drop(df[df['課程名稱'].str.contains('國際|僑生', regex=1)].index, inplace=True)
-    df.drop(df[df['選課限制條件'].str.contains('限生農學院學生|限僑生、國際學生|限醫學院學生|限文學院學生|限學士班一年級|限國際學生', regex=1)].index, inplace=True)
+    # df.drop(df[df['選課限制條件'].str.contains('限生農學院學生|限僑生、國際學生|限醫學院學生|限文學院學生|限學士班一年級|限國際學生', regex=1)].index, inplace=True)
 
     df = prefered_cols(df)
     sf = StyleFrame(df)
@@ -205,8 +205,6 @@ def pe_filter(name, writer, schedule):
         for j in range(15):
             if schedule[i][j]:
                 df.drop(df[df['time_' + str(i) + '_' + str(j)] == 1].index, inplace=True)
-    # df.drop(df[df['課程名稱'].str.contains('國際|僑生', regex=1)].index, inplace=True)
-    # df.drop(df[df['選課限制條件'].str.contains('限生農學院學生|限僑生、國際學生|限醫學院學生|限文學院學生|限學士班一年級|限國際學生', regex=1)].index, inplace=True)
 
     df = prefered_cols(df)
     sf = StyleFrame(df)
