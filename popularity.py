@@ -115,6 +115,7 @@ df_new = pd.DataFrame(data, columns=['流水號', '課號', '課程識別碼', '
                                      '限制條件', '人數上限', '外系上限', '外校上限', '已選上人數', '已選上外系人數', '登記人數', '剩餘名額'])
 df_new = df_new[['流水號', '人數上限', '外系上限', '外校上限', '已選上人數', '已選上外系人數', '登記人數', '剩餘名額']]
 print(df_new)
+df_new = df_new.drop_duplicates(subset=['流水號'], keep='last')
 df_new.to_csv('./save_csv/popularity.csv', encoding='utf-8-sig', index=False)
 
 for file in glob.iglob('./save_csv/' + '**/*' + '.csv', recursive=True):
